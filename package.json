@@ -1,0 +1,20 @@
+{
+  "name": "blockchain-islam-azim",
+  "version": "1.0.0",
+  "description": "This is a our first assignment - implementing a simple blockchain using Node.JS to learn the basics of hwo blockchain works",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "blockchain",
+    "javascript"
+  ],
+  "author": "Islam Adilkhan, Azim Kassymbaev",
+  "license": "ISC",
+  "dependencies": {
+    "bs58": "^5.0.0",
+    "crypto-js": "^4.1.1"
+  }
+}
