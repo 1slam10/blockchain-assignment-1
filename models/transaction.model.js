@@ -2,16 +2,16 @@ const SHA256 = require('crypto-js/sha256')
 const crypto = require('crypto');
 
 class Transaction {
-    constructor(owner, receiverAddress, amount) {
-        this.owner = owner;
+    constructor(wallet, receiverAddress, amount) {
+        this.wallet = wallet;
         this.receiver = receiverAddress;
         this.amount = amount;
         this.signature = this.sign();
     }
 
-    sendToNodes() {
+    getTransactionData() {
         return {
-            "sender_address": this.owner.walletAddress,
+            "sender_address": this.wallet.walletAddress,
             "receiver_address": this.receiverAddress,
             "amount": this.amount,
             "signature": this.signature
@@ -19,37 +19,32 @@ class Transaction {
     }
 
     sign() {
-        const transactionData = this.generateData();
-        const hashObject = SHA256(transactionData).toString();
-
-        const privateKeyBuffer = Buffer.from(this.privateKey, 'hex');
+        const transactionData = this.generateData(); //array of bytes
+        const hashObject = SHA256(transactionData).toString(); //hash
 
         const signer = crypto.createSign('RSA-SHA256');
 
-        signer.update(privateKeyBuffer);
         signer.update(hashObject);
+        signer.end();
 
-        const signature = signer.sign();
+        const signature = signer.sign(this.wallet.privateKey);
 
-        return signature.toString('hex');
+        return Buffer.from(signature.toString('hex'), 'hex').toString('utf8');
     }
 
-    //returns ransaction in byte format
+    //returns transaction in byte format
     generateData() {
         let transactionData = {
-            "sender": String(this.owner.walletAddress),
+            "sender": String(this.wallet.walletAddress),
             "receiver": String(this.receiver),
             "amount": String(this.amount)
         }
 
-        const jsonString = JSON.stringify(transactionData);
-        const textEncoder = new TextEncoder();
-        const bytes = textEncoder.encode(jsonString);
+        const jsonString = JSON.stringify(transactionData, 2);
+        const bytes = new TextEncoder().encode(jsonString);
 
-        // Returning the byte array
         return bytes;
     }
-
 }
 
 module.exports = Transaction
