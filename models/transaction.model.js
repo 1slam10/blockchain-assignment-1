@@ -1,5 +1,6 @@
 const SHA256 = require('crypto-js/sha256')
 const crypto = require('crypto');
+const colors = require('colors');
 
 class Transaction {
     constructor(wallet, receiverAddress, amount) {
@@ -48,8 +49,8 @@ class Transaction {
 
     show() {
         console.log("--------------------------");
-        console.log("Sender address: " + this.wallet.walletAddress);
-        console.log("Receiver address: " + this.receiver);
+        console.log("Sender address: " + colors.green(this.wallet.walletAddress));
+        console.log("Receiver address: " + colors.green(this.receiver));
         console.log("Amount: " + this.amount);
         console.log("Signature: " + this.signature);
         console.log("--------------------------");

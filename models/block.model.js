@@ -1,5 +1,4 @@
-const SHA256 = require('crypto-js/sha256');
-const MerkleTree = require('./merkletree.model')
+const colors = require('colors');
 
 class Block {
     constructor(timestamp, transactionData, previousBlockHash = null) {
@@ -13,10 +12,10 @@ class Block {
 
     show() {
         console.log("-------------------------");
-        console.log("Hash: " + this.hash);
-        console.log("Previous block hash: " + this.previousBlockHash);
-        console.log("Root hash: " + this.rootHash);
-        console.log("Nonce: " + this.nonce)
+        console.log("Hash: " + colors.green(this.hash));
+        console.log("Previous block hash: " + colors.green(this.previousBlockHash));
+        console.log("Root hash: " + colors.green(this.rootHash));
+        console.log("Nonce: " + colors.yellow(this.nonce));
         console.log("Number of transactions: " + (this.previousBlockHash ? this.transactionData.length : 0));
     }
 }

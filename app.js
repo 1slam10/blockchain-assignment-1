@@ -1,10 +1,12 @@
+const prompt = require('prompt-sync')({ sigint: true });
+const colors = require('colors');
+
 const BlockChain = require('./models/blockchain.model');
 const Miner = require('./models/miner.model');
 const Transaction = require('./models/transaction.model');
 const User = require('./models/user.model.js')
 const TransactionPool = require("./models/transactionPool.model");
 
-const prompt = require('prompt-sync')({ sigint: true });
 
 class App {
     constructor() {
@@ -37,7 +39,7 @@ class App {
             case 6:
                 this.miner.mine();
                 break;
-            default: console.log("Ooooops, you entered something wrong...")
+            default: console.log(colors.red("Ooooops, you entered something wrong..."));
         }
     }
 
@@ -46,14 +48,14 @@ class App {
 
         for (let user of this.users) {
             if (user.login === input) {
-                console.log("\n\n\nUser already exists!\n\n\n");
+                console.log(colors.red("\n\n\nUser already exists!\n\n\n"));
                 return;
             }
         }
 
         const user = new User(input);
         this.users.push(user);
-        console.log(`\n\n\nNew user with login "${input}" has been created!\n\n\n`)
+        console.log(colors.green(`\n\n\nNew user with login "${input}" has been created!\n\n\n`))
     }
 
     showUsers() {
@@ -69,7 +71,7 @@ class App {
         let receiverLogin = prompt('To(login): ');
         let amount = Number(prompt('Amount: '));
 
-        console.log(`\n\n\nCreating a transaction from ${senderLogin} to ${receiverLogin}`)
+        console.log(colors.yellow(`\n\n\nCreating a transaction from ${senderLogin} to ${receiverLogin}`));
 
 
         let sender = null;
@@ -91,7 +93,7 @@ class App {
         }
 
         if (!sender && !receiver) {
-            console.log("Something got wrong. Check the entered data for correctness. Aborting...");
+            console.log(colors.red("Something got wrong. Check the entered data for correctness. Aborting..."));
             return;
         }
 

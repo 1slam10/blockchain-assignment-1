@@ -1,5 +1,6 @@
 const SHA256 = require('crypto-js/sha256');
 const crypto = require('crypto');
+const colors = require('colors');
 
 class TransactionPool {
     constructor() {
@@ -8,32 +9,29 @@ class TransactionPool {
     }
 
     add(transaction) {
-        console.log("Verifying new transacation...");
+        console.log(colors.yellow("Verifying new transacation..."));
 
         const transactionData = transaction.getTransactionData()
         const hasFunds = this.validateFunds(transactionData['sender_address'], Number(transactionData['amount']));
 
         if (!hasFunds) {
-            console.log("You have not enough funds, unable to make a transaction. Aborting...");
+            console.log(colors.red("You have not enough funds, unable to make a transaction. Aborting..."));
             return;
         }
 
         const isValidSign = this.validateSignature(transaction.wallet.publicKey, transactionData.signature, transaction.generateData());
 
         if (!isValidSign) {
-            console.log("Transaction signature is not correct, unable to make a transaction. Aborting...");
+            console.log(colors.red("Transaction signature is not correct, unable to make a transaction. Aborting..."));
         }
         this.transactions.push(transaction);
         this.pendingTransactions.push(transaction);
-        console.log("Transaction created successfully!");
+        console.log(colors.green("Transaction created successfully!"));
     }
     
     validateSignature(publicKey, signature, transactionData) {
         //const signatureBuffer = Buffer.from(signature, 'hex');
-        console.log("Validation of transaction signature...")
-
-        //console.log(signatureBuffer)
-        console.log(signature)
+        console.log(colors.yellow("Validation of transaction signature..."));
 
         const verifier = crypto.createVerify('RSA-SHA256');
 
@@ -101,7 +99,7 @@ class TransactionPool {
 
     showTransactionsHistory() {
         if (this.transactions.length < 1) {
-            console.log("There is no transactions :(")
+            console.log(colors.red("There is no transactions :("));
         }
         for (let transaction of this.transactions) {
             transaction.show();
@@ -110,7 +108,7 @@ class TransactionPool {
 
     showPending() {
         if (this.transactions.length < 1) {
-            console.log("There is no pending transactions :(")
+            console.log(colors.red("There is no pending transactions :("));
         }
         for (let transaction of this.pendingTransactions) {
             transaction.show();

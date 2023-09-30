@@ -5,7 +5,7 @@ const Block = require('./block.model');
 class Blockchain {
     constructor() {
         this.chain = [];
-        this.difficulty = 5;
+        this.difficulty = 2;
     }
 
     add(block) {

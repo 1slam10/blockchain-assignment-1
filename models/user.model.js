@@ -1,4 +1,5 @@
 const Wallet = require("./wallet.model")
+const colors = require('colors');
 
 class User {
     constructor(login) {
@@ -11,7 +12,7 @@ class User {
     show() {
         console.log("\n--------------------------");
         console.log("Login: " + this.login);
-        console.log("Wallet address: " + this.wallet.walletAddress);
+        console.log("Wallet address: " + colors.green(this.wallet.walletAddress));
         console.log(`User ${this.login} has: ${this.balance} Azimcoins`);
         console.log("--------------------------\n");
     }

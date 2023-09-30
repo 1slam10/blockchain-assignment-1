@@ -1,5 +1,5 @@
 const SHA256 = require("crypto-js/sha256");
-const crypto = require('crypto')
+const colors = require('colors');
 const Block = require("./block.model");
 const MerkleTree = require("./merkletree.model");
 
@@ -12,11 +12,11 @@ class Miner {
     }
 
     mine() {
-        console.log("Mining a new block...");
+        console.log(colors.yellow("Mining a new block..."));
         const transactionData = this.transactionsPool.prepareForMining();
 
         if (transactionData.length < 1) {
-            console.log("There is no pending transactions. Unable to create a block :(");
+            console.log(colors.red("There is no pending transactions. Unable to create a block :("));
             return;
         }
         const previousBlockHash = this.blockchain.lastBlockHash();
@@ -47,11 +47,11 @@ class Miner {
         block.nonce = nonce;
 
         this.blockchain.add(block);
-        console.log("Block mined successfully!")
+        console.log(colors.green("Block mined successfully!"));
     }
 
     mineGenesisBlock() {
-        console.log("Started mining genesis block...");
+        console.log(colors.yellow("Started mining genesis block..."));
         let genesisBlock = new Block(Date.now(), "Genesis block");
         const rootHash = SHA256(genesisBlock.transactionData).toString();
 
@@ -75,7 +75,7 @@ class Miner {
         genesisBlock.hash = hash;
         genesisBlock.nonce = nonce;
 
-        console.log("Genesis block added successfully!");
+        console.log(colors.green("Genesis block added successfully!"));
         this.blockchain.add(genesisBlock);
     }
 }

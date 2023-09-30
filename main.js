@@ -1,5 +1,5 @@
 const prompt = require('prompt-sync')({ sigint: true });
-
+const colors = require('colors');
 const App = require('./app');
 
 const app = new App();
@@ -15,7 +15,7 @@ do {
     console.log("[5] Show transactions history");
     console.log("[6] Create a block of pending transactions");
     console.log("[7] Show blockchain\n");
-    console.log("[8] Exit");
+    console.log(colors.red("[8] Exit"));
     console.log("-------------------------\n");
 
     input = Number(prompt('> '));
