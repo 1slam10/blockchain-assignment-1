@@ -1,34 +1,23 @@
 const SHA256 = require('crypto-js/sha256');
+const MerkleTree = require('./merkletree.model')
 
 class Block {
-    constructor(timestamp, transactionData, previousBlock = null) {
+    constructor(timestamp, transactionData, previousBlockHash = null) {
         this.timestamp = timestamp;
         this.transactionData = transactionData;
-        this.previousBlock = previousBlock;
-        this.previousBlockHash = getPreviousBlockHash();
-        this.hash = calculateHash();
+        this.previousBlockHash = previousBlockHash;
+        this.hash = null;
+        this.rootHash = null;
         this.nonce = 0;
     }
 
-    calculateHash() {
-
-        let blockContent = {
-            "transactionData": this.transactionData,
-            "timestamp": this.timestamp,
-            "previousBlockHash": this.previousBlockHash
-        }
-    
-        let jsonObject = JSON.stringify(blockContent, null, 2)
-
-        return SHA256(Buffer.from(jsonObject, 'utf-8')).toString();
-    }
-
-    getPreviousBlockHash() {
-        previousBlockHash = ""
-        if (this.previousBlock) {
-            previousBlockHash = this.previousBlock.hash;
-        }
-        return previous_block_cryptographic_hash
+    show() {
+        console.log("-------------------------");
+        console.log("Hash: " + this.hash);
+        console.log("Previous block hash: " + this.previousBlockHash);
+        console.log("Root hash: " + this.rootHash);
+        console.log("Nonce: " + this.nonce)
+        console.log("Number of transactions: " + (this.previousBlockHash ? this.transactionData.length : 0));
     }
 }
 

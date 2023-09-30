@@ -12,7 +12,7 @@ class Transaction {
     getTransactionData() {
         return {
             "sender_address": this.wallet.walletAddress,
-            "receiver_address": this.receiverAddress,
+            "receiver_address": this.receiver,
             "amount": this.amount,
             "signature": this.signature
         }
@@ -29,7 +29,7 @@ class Transaction {
 
         const signature = signer.sign(this.wallet.privateKey);
 
-        return Buffer.from(signature.toString('hex'), 'hex').toString('utf8');
+        return signature;
     }
 
     //returns transaction in byte format
@@ -40,10 +40,19 @@ class Transaction {
             "amount": String(this.amount)
         }
 
-        const jsonString = JSON.stringify(transactionData, 2);
+        const jsonString = JSON.stringify(transactionData);
         const bytes = new TextEncoder().encode(jsonString);
 
         return bytes;
+    }
+
+    show() {
+        console.log("--------------------------");
+        console.log("Sender address: " + this.wallet.walletAddress);
+        console.log("Receiver address: " + this.receiver);
+        console.log("Amount: " + this.amount);
+        console.log("Signature: " + this.signature);
+        console.log("--------------------------");
     }
 }
 

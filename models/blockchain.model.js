@@ -4,16 +4,23 @@ const Block = require('./block.model');
 
 class Blockchain {
     constructor() {
-        this.chain = [this.createGenesisBlock()]
-        this.pendingTransactions
-        this.difficulty = 15
+        this.chain = [];
+        this.difficulty = 5;
     }
 
-    createGenesisBlock() {
-        return new Block(Date.now(), "Genesis block", 0)
+    add(block) {
+        this.chain.push(block);
     }
 
-    getLatestBlock() {
-        return this.chain[this.chain.length - 1];
+    lastBlockHash() {
+        return this.chain[this.chain.length - 1].hash;
+    }
+
+    show() {
+        for(let block of this.chain) {
+            block.show()
+        }
     }
 }
+
+module.exports = Blockchain
