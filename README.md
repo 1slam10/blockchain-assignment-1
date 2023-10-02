@@ -41,7 +41,7 @@ which contains:
   1. `transactions[]` is a list to hold a history of transactions.
   2. `pendingTransactions[]` is a list to store pending transactions that are currently don't belong to any block. The list is cleared since new block is mined.
   3. `add(transaction)` method that takes a newly created transaction as an input and verifies it. The verification of the transaction consists of signature check and available funds check. For signature check it just checks the signature of the block using transaction owner's public key(pretty straightforward, I know). Funds check iterates over transactions history and check if sender has a enough amount of available cash to send it. Then if it is all okay, it adds transaction both to pending transactions list and transaction history list.
-  4. `getFunds()` method is a helper just to update a users balance in tha application. Actually it is a duplicate of a `validateFunds()`. Yes, I know that it was a serious mistake to duplicate the same function, but it is what it is. See [here](#why-this-project-is-so-misareble) why.
+  4. `getFunds()` method is a helper just to update a users balance in tha application. Actually it is a duplicate of a `validateFunds()`. Yes, I know that it was a serious mistake to duplicate the same function, but it is what it is. See [here](#why-this-project-is-so-misareble?) why.
   5. `prepareForMining()` method gets all pending transactions and merges all of them into one single list of objects and then clears a pending transactions list.
   6. `showPending()` method outputs to stdout pending transactions, nothing more :)
 
