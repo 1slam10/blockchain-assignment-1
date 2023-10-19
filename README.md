@@ -79,11 +79,15 @@ Thank you for your attention <3
 
 ```bash
 
+# clone the repository
 git clone https://github.com/1slam10/blockchain-assignment-1.git
-cd <Project folder(same as repo link)>
 
-# to install dependencies
+# get into project folder
+cd mini-blockchain
+
+# install dependencies
 npm install
+
 # to start a script and run the "app"
 npm start
 
