@@ -66,7 +66,7 @@ Generally, I had no purpose to invent a wheel or make a clone of great Satoshi N
 - No reward system
 - No miner races
 - No validation of blockchain
-- No distribution across nodes of network
+- No distribution across nodes of network  
 And a lot more...
 
 The next project are gonna be much better!
