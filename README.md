@@ -75,6 +75,8 @@ Thank you for your attention <3
 
 ## To install and run
 
+> You have to have NodeJS JavaScript runtime and `npm` package manager installed on your machine 
+
 ```bash
 
 git clone https://github.com/1slam10/blockchain-assignment-1.git
